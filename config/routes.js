@@ -1,8 +1,26 @@
 
 module.exports = app => {
 
-    app.route('/regprod')
+    app.route('/products')
         .post(app.api.product.save)
+        .get(app.api.product.get)
+
+    app.route('/products/:id')
+        .put(app.api.product.save)//editar ainda nao implementado
+        .get(app.api.product.getById)
+        .delete(app.api.product.remove)
+        .post(app.api.product.edit)
+
+
+
+
+    
+        
+            
+        
+           
+       
+       
     
  
 }
@@ -20,22 +38,7 @@ module.exports = app => {
             var cursor = db.collection('data').find()
         })
 
-    app.route('/show')
-        .get((req, res) => {
-            db.collection('data').find().toArray((err, results) => {
-                if (err) return console.log(err)
-                res.render('../public/show.ejs', { data: results })
-        
-            })
-        })
-        .post((req, res) => {
-            db.collection('data').insertOne(req.body, (err, result) => {
-                if (err) return console.log(err)
-        
-                console.log('Salvo no Banco de Dados')
-                res.redirect('/show')
-            })
-        })
+    
     
     
     app.route('/edit/:id')
