@@ -1,16 +1,22 @@
 
+const productController = require('../controllers/product.js')
+
+
+
 module.exports = app => {
 
-    app.route('/products')
-        .post(app.api.product.save)
-        .get(app.api.product.get)
+    //app.route('/products')
+        //.post(app.api.product.save)
+        //.post(productController.save)
+     /*    .get(app.api.product.get)
 
     app.route('/products/:id')
         .put(app.api.product.save)//editar ainda nao implementado
         .get(app.api.product.getById)
         .delete(app.api.product.remove)
-        .post(app.api.product.edit)
+        .post(app.api.product.edit) */
 
+     app.post('/products', productController.save ) 
 
 
 
@@ -22,13 +28,13 @@ module.exports = app => {
        
        
     
- 
+        
 }
 
 
 
 
-   /* app.route('/')    
+  /*  app.route('/')    
         .get((req, res) => {                    
             res.render('../public/index.ejs')
             

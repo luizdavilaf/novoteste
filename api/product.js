@@ -25,7 +25,7 @@ module.exports = app => {
             .catch(err => res.status(500).send(err))
 
     }
-
+    
     const remove = (req, res) => {
         var id = req.params.id
         app.db.collection('products')
@@ -34,6 +34,8 @@ module.exports = app => {
             .catch(err => res.status(500).send(err))
     }
 
+
+    
 
     const edit = (req, res) => {
         var id = req.params.id
@@ -55,20 +57,16 @@ module.exports = app => {
     }
 
     const getByCategory = (req, res) => {
-        var id = req.params.id
+        var category = req.body.category
         app.db.collection('products')
-            .findOne(ObjectId(id))
+            .find({"category": category}).toArray()
             .then(products => res.json(products))
             .catch(err => res.status(500).send(err))
 
     }
 
     const getByName = (req, res) => {
-        var id = req.params.id
-        app.db.collection('products')
-            .findOne(ObjectId(id))
-            .then(products => res.json(products))
-            .catch(err => res.status(500).send(err))
+        
 
     }
 
