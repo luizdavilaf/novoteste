@@ -1,12 +1,14 @@
+const text = require("body-parser/lib/types/text");
 var mongoose = require("mongoose");
+const { paginate } = require("mongoose-paginate-v2");
 const Schema = mongoose.Schema;
 
 
-//module.exports = () => {
+
   let productSchema = new Schema({
     title: {
       type: String,
-      required: true,
+      required: true,      
     },
     description: {
       type: String,
@@ -17,13 +19,13 @@ const Schema = mongoose.Schema;
     },
     category: {
       type: String,
-      required: true,
+      required: true,      
     },
   })
-  
+ // productSchema.plugin(paginate)
   productSchema.set("timestamps", true)
-  //return mongoose.model("products", productSchema);
-//};
+  productSchema.index({title: 1, category: 1 });
+  
 module.exports = mongoose.model('produtos', productSchema)
 
-//module.exports = {productSchema}
+
