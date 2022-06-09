@@ -9,16 +9,16 @@ const productService = require("../services/product");
  */
 const save = (req, res) => {
   const { title, description, price, category } = req.body;
-  console.log("salvando novo produto")
+  ////console.log("salvando novo produto")
   return new Promise((resolve, reject) => { //APANHEI DEMAIS NA PROMISE, NAO TINHA COLOCADO E FICAVA CARREGANDO ETERNAMENTE O BANCO
     productService.saveProduct(title, description, price, category)
       .then((product) => {
-        console.log(product);
+        //console.log(product);
         resolve(product);
         res.status(200).send();
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
         reject(err);
         res.status(500).send(err);
       });
@@ -30,15 +30,16 @@ const save = (req, res) => {
  * @param {*} res json de produtos e status da operação
  */
 const get = (req, res) => {
-  console.log("buscando todos produtos");
+  //console.log("buscando todos produtos");
   productService.gelAllProducts()
     .then((products) => {
-      console.log(products);
-      res.json({success: true, data: products});
+      
+      res.json({success: true, data: products});      
       res.status(200).send();
+      
     })
     .catch((err) => {
-      console.log(err);
+      //console.log(err);
       reject(err);
     });
 };
@@ -48,16 +49,16 @@ const get = (req, res) => {
  * @param {*} res json e status da operação
  */
 const remove = (req,res) => {
-  console.log("deletando produto")
+  //console.log("deletando produto")
   let id = req.params.id
   productService.deleteProduct(id)
     .then((product)=>{
-      console.log(product);
+      //console.log(product);
       res.json({success: true, data: product});
       res.status(200).send();
     })
     .catch((err) => {
-      console.log(err);
+      //console.log(err);
       reject(err);
     });
 }
@@ -67,16 +68,16 @@ const remove = (req,res) => {
  * @param {*} res json do produto e status da operação
  */
 const getById = (req,res) => {
-  console.log("procurando produto por id")
+  //console.log("procurando produto por id")
   let id = req.params.id
   productService.getProduct(id)
     .then((product)=>{
-      console.log(product);
+      //console.log(product);
       res.json({success: true, data: product});
       res.status(200).send();
     })
     .catch((err) => {
-      console.log(err);
+      //console.log(err);
       reject(err);
     });
 }
@@ -86,17 +87,17 @@ const getById = (req,res) => {
  * @param {*} res retorna o produto atualizado
  */
 const edit = (req,res) => {
-  console.log("procurando produto para editar")  
+  //console.log("procurando produto para editar")  
   let id = req.params.id  
   const { title, description, price, category } = req.body;
   productService.editProduct(id,title, description, price, category)
     .then((product)=>{
-      console.log(product);
+      //console.log(product);
       res.json({success: true, data: product});
       res.status(200).send();
     })
     .catch((err) => {
-      console.log(err);
+      //console.log(err);
       reject(err);
     });
 }
@@ -108,31 +109,31 @@ const edit = (req,res) => {
  * @param {*} next 
  */
 const search = (req,res,next) =>{
-  console.log("procurando produto por nome")   
+  //console.log("procurando produto por nome")   
   if(req.query.title!=null){
     let title =req.query.title
-    console.log(title)
+    //console.log(title)
     productService.searchByName(title)
       .then((products)=>{
-        console.log(products)
+        //console.log(products)
         res.json({success: true, data: products});
       res.status(200).send();        
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
         reject(err);
       });
   }else if(req.query.category!=null){
     let category =req.query.category
-    console.log(category)
+    //console.log(category)
     productService.searchByCategory(category)
       .then((products)=>{
-        console.log(products)
+        //console.log(products)
         res.json({success: true, data: products});
       res.status(200).send();        
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
         reject(err);
       });
   }
@@ -145,19 +146,19 @@ const search = (req,res,next) =>{
  * @returns 
  */
 const setCategory = (req,res)=>{
-  console.log("editando categoria de produto") 
+  //console.log("editando categoria de produto") 
   let id = req.params.id 
   let category = req.body.category
   return new Promise((resolve, reject) => {
     productService.editCategory(id,category)
       .then((product)=>{
-        console.log(product);
+        //console.log(product);
         res.json({success: true, data: product});
-        console.log(product)
+        //console.log(product)
         res.status(200).send();
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
         reject(err);
       })
   })

@@ -1,13 +1,12 @@
-const MongoClient = require("mongodb").MongoClient;
+
 const mongoose = require("mongoose");
-const database = "jocatest";
-const uri =
-  "mongodb+srv://luizdavilaf:teste123@cluster0.jb2utdz.mongodb.net/jocatest?authSource=admin&compressors=zlib&retryWrites=true&w=majority&ssl=true";
-let _db;
+require('dotenv-flow').config();
+//const uri ="mongodb+srv://luizdavilaf:teste123@cluster0.jb2utdz.mongodb.net/jocatest?authSource=admin&compressors=zlib&retryWrites=true&w=majority&ssl=true";
+
 
 const connectDB = async () => {
     try {
-        await mongoose.connect(uri, {
+        await mongoose.connect(process.env.DBHOST, {
             useUnifiedTopology: true,
             useNewUrlParser: true
         });
