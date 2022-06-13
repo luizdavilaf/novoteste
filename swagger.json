@@ -1,0 +1,329 @@
+{
+    "swaggerDefinition": {
+        "openapi": "3.0.0",
+        "info": {
+            "version": "1.0.0",
+            "title": "Simple API",
+            "description": "A simple API to illustrate OpenAPI concepts"
+        },
+        "servers": [
+            {
+                "url": "http://localhost:7000"
+            }
+        ],
+        "paths": {
+            "/products": {
+                "post": {
+                    "tags": [
+                        "produtos"
+                    ],
+                    "summary": "Create a Producut",
+                    "description": "save a product in database",
+                    "requestBody": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Product"
+                                },
+                                "examples": {
+                                    "product": {
+                                        "value": {
+                                            "title": "Refrigerante 2 litros",
+                                            "description": "saboroso",
+                                            "price": 10,
+                                            "category": "Refrigerantes"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "consumes": [
+                        "application/json"
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "successful operation"
+                        },
+                        "500": {
+                            "description": "INPUT ERROR"
+                        }
+                    }
+                },
+                "get": {
+                    "tags": [
+                        "produtos"
+                    ],
+                    "summary": "return the products",
+                    "description": "returns all the products registered",
+                    "produces": [
+                        "application/json"
+                    ],
+                    "parameters": [],
+                    "responses": {
+                        "200": {
+                            "description": "successful operation",
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        },
+                        "500": {
+                            "description": "INPUT ERROR"
+                        }
+                    }
+                }
+            },
+            "/products/search": {
+                "get": {
+                    "tags": [
+                        "produtos"
+                    ],
+                    "summary": "return the products searching by name or category",
+                    "description": "",
+                    "produces": [
+                        "application/json"
+                    ],
+                    "parameters": [
+                        {
+                            "name": "title",
+                            "in": "query",
+                            "description": "The name that needs to be fetched. Use wine for testing. ",
+                            "type": "string"
+                        },
+                        {
+                            "name": "category",
+                            "in": "query",
+                            "description": "The category that needs to be fetched. Use tools for testing. ",
+                            "type": "string"
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "successful operation",
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        },
+                        "500": {
+                            "description": "INPUT ERROR"
+                        }
+                    }
+                }
+            },
+            "/products/{_id}": {
+                "get": {
+                    "tags": [
+                        "produtos"
+                    ],
+                    "summary": "return the products with the id",
+                    "description": "",
+                    "produces": [
+                        "application/json"
+                    ],
+                    "parameters": [
+                        {
+                            "name": "_id",
+                            "in": "path",
+                            "description": "The id that needs to be fetched. Use 62a3543d6eceb3ac3fcf1269 for testing",
+                            "type": "string",
+                            "required": true
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "successful operation",
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        },
+                        "500": {
+                            "description": "INPUT ERROR"
+                        }
+                    }
+                },
+                "post": {
+                    "tags": [
+                        "produtos"
+                    ],
+                    "summary": "Set a category of a product",
+                    "description": "",
+                    "parameters": [
+                        {
+                            "name": "_id",
+                            "in": "path",
+                            "description": "The id that needs to be fetched. Use 62a3543d6eceb3ac3fcf1269 for testing",
+                            "type": "string",
+                            "required": true
+                        }             
+                    ],
+                    "requestBody": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Category"
+                                },                                
+                                "examples": {
+                                    "product": {
+                                        "value": {
+                                            "category": "Refrigerantes"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },                   
+                    "consumes": [
+                        "application/json"
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Produto alterado",
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        },
+                        "500": {
+                            "description": "INPUT ERROR"
+                        }
+                    }
+                },
+                "delete": {
+                    "tags": [
+                        "produtos"
+                    ],
+                    "summary": "delete a product with the id",
+                    "description": "",
+                    "produces": [
+                        "application/json"
+                    ],
+                    "parameters": [
+                        {
+                            "name": "_id",
+                            "in": "path",
+                            "description": "The id that needs to be fetched. Use 62a3543d6eceb3ac3fcf1269 for testing",
+                            "type": "string",
+                            "required": true
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "successful operation",
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        },
+                        "500": {
+                            "description": "INPUT ERROR"
+                        }
+                    }
+                },
+                "put": {
+                    "tags": [
+                        "produtos"
+                    ],
+                    "summary": "Set all attributes of a product",
+                    "description": "",
+                    "parameters": [
+                        {
+                            "name": "_id",
+                            "in": "path",
+                            "description": "The id that needs to be fetched. Use 62a3543d6eceb3ac3fcf1269 for testing",
+                            "type": "string",
+                            "required": true
+                        }             
+                    ],
+                    "requestBody": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Product"
+                                },                                
+                                "examples": {
+                                    "product": {
+                                        "value": {
+                                            "title": "Refrigerante 2 litros",
+                                            "description": "saboroso",
+                                            "price": 10,
+                                            "category": "Refrigerantes"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },                   
+                    "consumes": [
+                        "application/json"
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Produto alterado",
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        },
+                        "500": {
+                            "description": "INPUT ERROR"
+                        }
+                    }
+                }
+            }
+        },
+        "components": {
+            "schemas": {
+                "Product": {
+                    "type": "object",
+                    "properties": {
+                        "title": {
+                            "type": "string",
+                            "required": true
+                        },
+                        "description": {
+                            "type": "string"
+                        },
+                        "price": {
+                            "type": "number",
+                            "required": true
+                        },
+                        "category": {
+                            "type": "string",
+                            "required": true
+                        },
+                        "_id": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "Category": {
+                    "type": "object",
+                    "properties": {                       
+                        "category": {
+                            "type": "string",
+                            "required": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "apis": [
+        "./config/routes.js"
+    ]
+}
