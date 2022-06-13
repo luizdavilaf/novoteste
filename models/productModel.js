@@ -24,7 +24,9 @@ const Schema = mongoose.Schema;
   })
  // productSchema.plugin(paginate)
   productSchema.set("timestamps", true)
-  productSchema.index({title: 1, category: 1 });
+  productSchema.index({title: 1, text});
+  productSchema.index({category: 1, text });
+  productSchema.index({_id: 1, title: 1, description: 1,price: 1,category: 1});
   
 module.exports = mongoose.model('produtos', productSchema)
 

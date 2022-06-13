@@ -1,5 +1,6 @@
-process.env.NODE_ENV = 'test';
-
+//process.env.NODE_ENV = 'test';
+//process.env.NODE_ENV = 'local';
+console.log("enviroment: "+process.env.NODE_ENV)
 const { before } = require('mocha');
 const Product = require('../models/productModel');
 

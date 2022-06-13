@@ -4,7 +4,7 @@ const productController = require('../controllers/product.js')
 
 
 module.exports = app => {
-
+    
     app.route('/products')
         .post(productController.save)        
         .get(productController.get)
@@ -16,9 +16,9 @@ module.exports = app => {
 
     app.route('/products/:id')
         .put(productController.edit)
-        .get(productController.getById)
-        .delete(productController.remove)
-        .post(productController.setCategory)
+        .get(productController.getById)//ok
+        .delete(productController.remove)//ok
+        .post(productController.setCategory)//ok
 
     
 

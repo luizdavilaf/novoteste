@@ -6,7 +6,7 @@ const ProductModel = require('../models/productModel');
 chai.use(chaiHttp);
 
 chai.request(server);
-console.log(process.env.NODE_ENV);
+console.log("enviroment: "+process.env.NODE_ENV);
 it("should verify that we have 0 products in the DB", (done) => {
   chai.request(server)
     .get("/products")
@@ -14,8 +14,9 @@ it("should verify that we have 0 products in the DB", (done) => {
       expect(res.status).to.be.equal(200);
       expect(res.body.data).to.be.an("array");
       expect(res.body.data.length).to.be.equal(0);
-      done();
+      
     });
+    done();
 });
 
 it("POST a valid product", (done) => {
@@ -30,8 +31,9 @@ it("POST a valid product", (done) => {
     .send(product)
     .end((err, res) => {
       expect(res.status).to.be.equal(200);
-      done();
+      
     });
+    done();
 });
 
 it("should NOT POST a product without a price", (done) => {
@@ -46,8 +48,9 @@ it("should NOT POST a product without a price", (done) => {
     .send(product)
     .end((err, res) => {
       expect(res.status).to.be.equal(500);
-      done();
+      
     });
+    done();
 });
 
 it("should NOT POST a product without a category", (done) => {
@@ -61,8 +64,9 @@ it("should NOT POST a product without a category", (done) => {
     .send(product)
     .end((err, res) => {
       expect(res.status).to.be.equal(500);
-      done();
+     
     });
+    done();
 });
 
 it("should NOT POST a product without a title", (done) => {
@@ -76,8 +80,9 @@ it("should NOT POST a product without a title", (done) => {
     .send(product)
     .end((err, res) => {
       expect(res.status).to.be.equal(500);
-      done();
+      
     });
+    done();
 });
 
 it("search of more than one product", (done) => {
@@ -101,8 +106,7 @@ it("search of more than one product", (done) => {
     .end((err, res) => {
       expect(res.status).to.be.equal(200);
       expect(res.body.data).to.be.an("array");
-      expect(res.body.data.length).to.be.equal(2);
-      
+      expect(res.body.data.length).to.be.equal(2);      
     });
     done();
 });
@@ -116,21 +120,22 @@ it("search by category", (done) => {
         expect(res.status).to.be.equal(200);
         expect(res.body.data).to.be.an("array");
         expect(res.body.data.length).to.be.equal(1);
-        done();
+        
       });
+      done();
   });
 
 
   it("search by title", (done) => {
-    let title = "Test Product"    
+    let title = "Test "    
     chai.request(server)
     .get('/products/search?title='+title)
       .end((err, res) => {
         expect(res.status).to.be.equal(200);
         expect(res.body.data).to.be.an("array");
-        expect(res.body.data.length).to.be.equal(2);
-        done();
+        expect(res.body.data.length).to.be.equal(2);        
       });
+      done();
   });
 
 
@@ -154,9 +159,10 @@ it("search by category", (done) => {
             expect(product5.description).to.be.equal(productTest.description);            
             expect(product5.price).to.be.equal(productTest.price);
             expect(product5.category).to.be.equal(productTest.category);
-            done();  
+            
         });             
     });
+    done();  
   });
 
   it("edit fields of a product", (done) => {
@@ -168,6 +174,7 @@ it("search by category", (done) => {
         let id = (res.body.data[0]._id)        
         expect(res.status).to.be.equal(200);
         expect(res.body.data).to.be.an("array");
+        
 
         //setando alterações
         let testProduct2 = {
@@ -185,14 +192,16 @@ it("search by category", (done) => {
         .end((err, res) => {
             expect(res.status).to.be.equal(200);
             let productResult = (res.body.data)
+            
             // comparando se está diferente do produto buscado anteriormente            
             expect(product6.title).not.to.be.equal(productResult.title);
             expect(product6.description).not.to.be.equal(productResult.description);            
             expect(product6.price).not.to.be.equal(productResult.price);
             expect(product6.category).not.to.be.equal(productResult.category);
-            done();
+            
         });             
     });
+    done();
   });
 
   it("delete by id", (done) => {
@@ -210,9 +219,10 @@ it("search by category", (done) => {
             .end((err, res) => {
                 expect(res.status).to.be.equal(200);
                 expect(res.body.data[0]).to.be.eql(undefined)
-                done();  
+                  
         });             
     });
+    done();
   });
 
 

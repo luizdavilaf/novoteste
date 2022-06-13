@@ -3,7 +3,15 @@ const app = require("express")();
 const mongoose = require("mongoose");
 const consign = require("consign");
 require('dotenv-flow').config();
-const PORT = process.env.PORT || 6000;
+const PORT = process.env.PORT ;
+console.log("enviroment: "+process.env.NODE_ENV);
+const swaggerUi = require('swagger-ui-express');
+const swaggerOptions = require('./swagger.json');
+const swaggerJsDoc = require('swagger-jsdoc')
+const swaggerDocs= swaggerJsDoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+
 
 mongoose.connect (
   process.env.DBHOST,  { useUnifiedTopology: true, useNewUrlParser: true }

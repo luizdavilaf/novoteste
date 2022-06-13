@@ -32,15 +32,15 @@ const save = (req, res) => {
 const get = (req, res) => {
   //console.log("buscando todos produtos");
   productService.gelAllProducts()
-    .then((products) => {
-      
-      res.json({success: true, data: products});      
-      res.status(200).send();
-      
+    .then((products) => {   
+      //console.log(products)   
+      //res.json({success: true, data: products});      
+      //res.status(200).send();      
+      res.status(200).json({data: products});
     })
     .catch((err) => {
       //console.log(err);
-      reject(err);
+      res.status(500).send(err);
     });
 };
 /**
@@ -54,8 +54,7 @@ const remove = (req,res) => {
   productService.deleteProduct(id)
     .then((product)=>{
       //console.log(product);
-      res.json({success: true, data: product});
-      res.status(200).send();
+      res.status(200).json({data: product});
     })
     .catch((err) => {
       //console.log(err);
@@ -73,12 +72,12 @@ const getById = (req,res) => {
   productService.getProduct(id)
     .then((product)=>{
       //console.log(product);
-      res.json({success: true, data: product});
-      res.status(200).send();
+      res.status(200).json({data:product});
+      //res.status(200).send();
     })
     .catch((err) => {
       //console.log(err);
-      reject(err);
+      res.status(500).send(err);
     });
 }
 /**
@@ -92,13 +91,14 @@ const edit = (req,res) => {
   const { title, description, price, category } = req.body;
   productService.editProduct(id,title, description, price, category)
     .then((product)=>{
-      //console.log(product);
-      res.json({success: true, data: product});
-      res.status(200).send();
+      
+      res.status(200).json({data: product});     
+      //res.status(200).send();
     })
     .catch((err) => {
       //console.log(err);
-      reject(err);
+      //console.log(res.req.body);
+      res.status(500).send(err);
     });
 }
 
@@ -108,7 +108,7 @@ const edit = (req,res) => {
  * @param {*} res retorna json com os produtos
  * @param {*} next 
  */
-const search = (req,res,next) =>{
+const search = (req,res) =>{
   //console.log("procurando produto por nome")   
   if(req.query.title!=null){
     let title =req.query.title
@@ -116,12 +116,12 @@ const search = (req,res,next) =>{
     productService.searchByName(title)
       .then((products)=>{
         //console.log(products)
-        res.json({success: true, data: products});
-      res.status(200).send();        
+        res.status(200).json({data: products});
+      //res.status(200).send();        
       })
       .catch((err) => {
         //console.log(err);
-        reject(err);
+        res.status(500).send(err);
       });
   }else if(req.query.category!=null){
     let category =req.query.category
@@ -129,12 +129,11 @@ const search = (req,res,next) =>{
     productService.searchByCategory(category)
       .then((products)=>{
         //console.log(products)
-        res.json({success: true, data: products});
-      res.status(200).send();        
+        res.status(200).json({data: products});
       })
       .catch((err) => {
         //console.log(err);
-        reject(err);
+        res.status(500).send(err);
       });
   }
 }
@@ -153,13 +152,14 @@ const setCategory = (req,res)=>{
     productService.editCategory(id,category)
       .then((product)=>{
         //console.log(product);
-        res.json({success: true, data: product});
-        //console.log(product)
-        res.status(200).send();
+        res.status(200).json({data: product}); 
+        resolve(product);
+        //console.log(product)        
       })
       .catch((err) => {
         //console.log(err);
-        reject(err);
+        res.status(500).send(err);
+        reject(err)
       })
   })
 

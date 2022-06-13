@@ -4,12 +4,15 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start-dev": "cross-env NODE_ENV=development nodemon server.js",    
-    "test": "cross-env NODE_ENV=test mocha --recursive --exit"
+    "start-dev": "cross-env NODE_ENV=development nodemon server.js",
+    "start-devlocal": "cross-env NODE_ENV=local nodemon server.js",
+    "test": "cross-env NODE_ENV=test mocha --recursive --exit",
+    "test-local": "cross-env NODE_ENV=localtest mocha --recursive --exit"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "-": "^0.0.1",
     "body-parser": "^1.20.0",
     "consign": "^0.1.6",
     "cors": "^2.8.5",
@@ -17,9 +20,12 @@
     "dotenv-flow": "^3.2.0",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
+    "mgeneratejs": "^0.6.0",
     "mongodb": "^4.6.0",
     "mongoose": "^6.0.11",
-    "mongoose-paginate-v2": "^1.6.3"
+    "mongoose-paginate-v2": "^1.6.3",
+    "swagger-jsdoc": "^6.2.1",
+    "swagger-ui-express": "^4.4.0"
   },
   "devDependencies": {
     "chai": "^4.3.6",
